@@ -1,0 +1,296 @@
+/* --- 1. Base Variables & Theme --- */
+:root {
+    --bg - dark: #121212;
+    --bg - surface: #1e1e1e;
+    --bg - surface - hover: #2a2a2a;
+
+    --text - primary: #ffffff;
+    --text - secondary: #a0a0a0;
+
+    --accent - primary: #2563eb;
+    --accent - hover: #1d4ed8;
+    --accent - violet: #7c3aed;
+    --success - color: #10b981;
+
+    --border - color: #333333;
+    --radius - sm: 8px;
+    --radius - md: 12px;
+    --radius - lg: 16px;
+
+    --shadow - sm: 0 4px 6px - 1px rgba(0, 0, 0, 0.1), 0 2px 4px - 1px rgba(0, 0, 0, 0.06);
+    --shadow - md: 0 10px 15px - 3px rgba(0, 0, 0, 0.5), 0 4px 6px - 2px rgba(0, 0, 0, 0.3);
+
+    --transition - fast: 0.15s ease -in -out;
+    --transition - normal: 0.3s ease;
+}
+
+* { margin: 0; padding: 0; box- sizing: border - box; font - family: 'Inter', sans - serif; }
+
+body {
+    background - color: var(--bg - dark);
+    color: var(--text - primary);
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* --- 2. Master Layout --- */
+.dashboard - container {
+    display: grid;
+    grid - template - columns: 240px 1fr;
+    height: 100vh;
+}
+
+/* --- 3. Sidebar Navigation --- */
+.sidebar {
+    background - color: var(--bg - surface);
+    border - right: 1px solid var(--border - color);
+    display: flex; flex - direction: column;
+    padding: 24px 16px; z - index: 10;
+    transition: transform var(--transition - normal);
+}
+.logo - container { display: flex; align - items: center; gap: 12px; margin - bottom: 48px; padding: 0 12px; }
+.logo - icon { font - size: 28px; color: var(--accent - primary); }
+.logo - text { font - size: 20px; font - weight: 700; letter - spacing: -0.5px; }
+
+.nav - links { display: flex; flex - direction: column; gap: 8px; }
+.nav - link {
+    display: flex; align - items: center; gap: 12px; padding: 12px;
+    color: var(--text - secondary); text - decoration: none;
+    border - radius: var(--radius - sm); transition: all var(--transition - fast);
+    font - weight: 500; cursor: pointer;
+}
+.nav - link i { font - size: 20px; }
+.nav - link:hover { background - color: var(--bg - surface - hover); color: var(--text - primary); }
+.nav - link.active { background - color: rgba(37, 99, 235, 0.1); color: var(--accent - primary); }
+
+/* --- 4. Main Content Area & Header --- */
+.main - content { display: flex; flex - direction: column; height: 100vh; overflow: hidden; }
+.top - header {
+    height: 72px; border - bottom: 1px solid var(--border - color);
+    display: flex; align - items: center; justify - content: space - between;
+    padding: 0 32px; background - color: var(--bg - dark); flex - shrink: 0;
+}
+.mobile - menu - toggle { display: none; font - size: 24px; cursor: pointer; color: var(--text - secondary); }
+
+.search - container {
+    display: flex; align - items: center; background - color: var(--bg - surface);
+    border: 1px solid var(--border - color); border - radius: var(--radius - md);
+    padding: 8px 16px; width: 100 %; max - width: 400px; transition: all var(--transition - fast);
+}
+.search - container: focus - within { border - color: var(--accent - primary); box - shadow: 0 0 0 3px rgba(37, 99, 235, 0.2); }
+.search - icon { color: var(--text - secondary); font - size: 18px; margin - right: 12px; }
+#search - input { background: transparent; border: none; color: var(--text - primary); width: 100 %; outline: none; font - size: 14px; }
+#search - input::placeholder { color: var(--text - secondary); }
+
+.header - actions { display: flex; align - items: center; gap: 20px; }
+.icon - btn { background: transparent; border: none; color: var(--text - secondary); font - size: 24px; cursor: pointer; position: relative; transition: color var(--transition - fast); }
+.icon - btn:hover { color: var(--text - primary); }
+.notification - badge { position: absolute; top: 2px; right: 2px; width: 8px; height: 8px; background - color: #ef4444; border - radius: 50 %; border: 2px solid var(--bg - dark); }
+.avatar { width: 40px; height: 40px; border - radius: 50 %; cursor: pointer; object - fit: cover; border: 2px solid transparent; transition: border var(--transition - fast); }
+.avatar.logged -in { border- color: var(--accent - primary); }
+
+/* --- 5. SPA View Routing Engine --- */
+.spa - views - wrapper { height: calc(100vh - 72px); position: relative; width: 100 %; }
+.spa - view {
+    position: absolute; top: 0; left: 0; width: 100 %; height: 100 %;
+    opacity: 0; pointer - events: none; visibility: hidden; transition: opacity var(--transition - fast);
+}
+.spa - view.active - view { opacity: 1; pointer - events: auto; visibility: visible; }
+
+/* Dashboard View Specifics */
+.dashboard - split { display: grid; grid - template - columns: 60 % 40 %; height: 100 %; overflow: hidden; }
+
+/* Page Views Specifics (Applications, Profile) */
+.page - view { padding: 40px; overflow - y: auto; background - color: var(--bg - dark); }
+.page - header { margin - bottom: 32px; }
+
+/* Application History Card */
+.history - card {
+    background - color: var(--bg - surface); border: 1px solid var(--border - color);
+    border - radius: var(--radius - md); padding: 24px; margin - bottom: 16px;
+    display: flex; justify - content: space - between; align - items: center;
+}
+.history - status {
+    background - color: rgba(16, 185, 129, 0.1); color: var(--success - color);
+    padding: 6px 12px; border - radius: 20px; font - size: 13px; font - weight: 600;
+}
+
+/* Profile Card */
+.profile - card {
+    background - color: var(--bg - surface); border: 1px solid var(--border - color);
+    border - radius: var(--radius - md); padding: 32px; max - width: 600px;
+}
+.profile - stat { display: flex; flex - direction: column; gap: 4px; margin - bottom: 24px; }
+.profile - label { color: var(--text - secondary); font - size: 14px; }
+.profile - value { font - size: 18px; font - weight: 500; }
+
+/* --- 6. Left Column: Job Feed --- */
+.job - list - section { padding: 32px; overflow - y: auto; border - right: 1px solid var(--border - color); display: flex; flex - direction: column; }
+:: -webkit - scrollbar { width: 6px; }
+:: -webkit - scrollbar - track { background: transparent; }
+:: -webkit - scrollbar - thumb { background - color: #444; border - radius: 10px; }
+:: -webkit - scrollbar - thumb:hover { background - color: var(--text - secondary); }
+
+.section - header { margin - bottom: 24px; }
+.welcome - text { font - size: 28px; font - weight: 700; margin - bottom: 8px; }
+.subtitle { color: var(--text - secondary); font - size: 15px; }
+
+/* Category Pills */
+.filter - tags { display: flex; gap: 12px; margin - bottom: 24px; overflow - x: auto; padding - bottom: 8px; flex - shrink: 0; }
+.filter - tags:: -webkit - scrollbar { height: 4px; }
+.filter - tag {
+    background - color: var(--bg - surface); color: var(--text - secondary);
+    border: 1px solid var(--border - color); padding: 8px 18px;
+    border - radius: 20px; font - size: 13px; font - weight: 500;
+    cursor: pointer; white - space: nowrap; transition: all var(--transition - fast);
+}
+.filter - tag:hover { background - color: var(--bg - surface - hover); color: var(--text - primary); }
+.filter - tag.active { background - color: var(--accent - primary); color: white; border - color: var(--accent - primary); }
+
+.job - cards - container { display: flex; flex - direction: column; gap: 16px; }
+
+/* --- 7. Job Cards --- */
+.job - card {
+    background - color: var(--bg - surface); border: 1px solid var(--border - color);
+    border - radius: var(--radius - md); padding: 20px; cursor: pointer;
+    transition: all var(--transition - normal); display: flex; flex - direction: column; gap: 16px;
+}
+.job - card:hover { transform: translateY(-2px); box - shadow: var(--shadow - md); border - color: #555; }
+.job - card.active {
+    background - color: rgba(37, 99, 235, 0.03); border - color: var(--accent - primary);
+    box - shadow: 0 0 0 1px var(--accent - primary);
+}
+.card - header { display: flex; justify - content: space - between; align - items: flex - start; }
+.company - info { display: flex; gap: 16px; align - items: center; }
+.company - logo {
+    width: 48px; height: 48px; border - radius: var(--radius - sm);
+    background - color: var(--bg - dark); display: flex; align - items: center;
+    justify - content: center; font - size: 24px; color: var(--text - secondary);
+}
+.job - title { font - size: 18px; font - weight: 600; margin - bottom: 4px; }
+.company - name { color: var(--text - secondary); font - size: 14px; }
+
+.bookmark - btn { background: transparent; border: none; color: var(--text - secondary); font - size: 24px; cursor: pointer; transition: color var(--transition - fast); }
+.bookmark - btn:hover { color: var(--accent - primary); }
+.bookmark - btn.saved { color: var(--accent - primary); }
+
+.card - tags { display: flex; flex - wrap: wrap; gap: 8px; }
+.tag { padding: 4px 10px; border - radius: 4px; font - size: 12px; font - weight: 500; }
+.tag - shift { background - color: rgba(124, 58, 237, 0.15); color: var(--accent - violet); border: 1px solid rgba(124, 58, 237, 0.3); }
+.tag - normal { background - color: var(--bg - dark); color: var(--text - secondary); border: 1px solid var(--border - color); }
+
+.card - footer {
+    display: flex; justify - content: space - between; align - items: center; margin - top: 4px;
+    padding - top: 16px; border - top: 1px solid var(--border - color); font - size: 14px; color: var(--text - secondary);
+}
+.card - footer - item { display: flex; align - items: center; gap: 6px; }
+
+/* --- 8. Right Column: Detailed View --- */
+.job - detail - section { background - color: var(--bg - dark); overflow - y: auto; position: relative; }
+.empty - state {
+    height: 100 %; display: flex; flex - direction: column; align - items: center;
+    justify - content: center; color: var(--text - secondary); gap: 16px;
+}
+.empty - state i { font - size: 48px; opacity: 0.5; }
+.detail - content { padding: 32px; animation: fadeIn var(--transition - normal); }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.detail - header - card {
+    background - color: var(--bg - surface); border: 1px solid var(--border - color);
+    border - radius: var(--radius - md); padding: 24px; margin - bottom: 24px;
+}
+.detail - company - logo {
+    width: 64px; height: 64px; border - radius: var(--radius - md); background - color: var(--bg - dark);
+    display: flex; align - items: center; justify - content: center; font - size: 32px; margin - bottom: 16px;
+}
+.detail - title { font - size: 24px; font - weight: 700; margin - bottom: 8px; }
+.detail - company { font - size: 16px; color: var(--accent - primary); margin - bottom: 16px; font - weight: 500; }
+.detail - meta { display: flex; flex - wrap: wrap; gap: 16px; margin - bottom: 24px; }
+.meta - item { display: flex; align - items: center; gap: 8px; color: var(--text - secondary); font - size: 14px; }
+.detail - actions { display: flex; gap: 12px; }
+
+/* Buttons */
+.btn {
+    padding: 10px 20px; border - radius: var(--radius - sm); font - size: 14px; font - weight: 600;
+    cursor: pointer; transition: all var(--transition - fast); display: flex;
+    align - items: center; justify - content: center; gap: 8px;
+}
+.btn - full { width: 100 %; padding: 14px; font - size: 15px; }
+.btn - primary { background - color: var(--accent - primary); color: white; border: none; }
+.btn - primary: hover: not(: disabled) { background - color: var(--accent - hover); box - shadow: 0 4px 12px rgba(37, 99, 235, 0.4); }
+.btn - secondary { background - color: transparent; color: var(--text - primary); border: 1px solid var(--border - color); }
+.btn - secondary: hover: not(: disabled) { background - color: var(--bg - surface - hover); }
+
+/* Applied / Saved States */
+.btn - applied { background - color: var(--success - color); color: white; border: none; cursor: not - allowed; }
+.btn - saved { border - color: var(--accent - primary); color: var(--accent - primary); }
+
+.detail - body { padding: 0 8px; }
+.section - title { font - size: 18px; font - weight: 600; margin - bottom: 16px; margin - top: 32px; color: var(--text - primary); }
+.section - title: first - child { margin - top: 0; }
+.detail - text { color: var(--text - secondary); line - height: 1.6; font - size: 15px; margin - bottom: 16px; }
+.requirements - list { list - style - type: none; }
+.requirements - list li {
+    color: var(--text - secondary); line - height: 1.6; font - size: 15px;
+    margin - bottom: 12px; display: flex; align - items: flex - start; gap: 10px;
+}
+.requirements - list li::before { content: "•"; color: var(--accent - primary); font - weight: bold; font - size: 18px; }
+
+/* --- 9. Modal System --- */
+.modal - overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background - color: rgba(0, 0, 0, 0.75); backdrop - filter: blur(4px);
+    display: flex; align - items: center; justify - content: center;
+    z - index: 1000; opacity: 0; pointer - events: none; visibility: hidden;
+    transition: opacity var(--transition - normal);
+}
+.modal - overlay.open { opacity: 1; pointer - events: auto; visibility: visible; }
+.modal - container {
+    background - color: var(--bg - surface); border: 1px solid var(--border - color);
+    border - radius: var(--radius - lg); padding: 40px; width: 90 %; max - width: 440px;
+    position: relative; box - shadow: var(--shadow - md); transform: translateY(20px);
+    transition: transform var(--transition - normal);
+}
+.modal - overlay.open.modal - container { transform: translateY(0); }
+.close - modal - btn {
+    position: absolute; top: 16px; right: 16px; background: transparent;
+    border: none; color: var(--text - secondary); font - size: 24px; cursor: pointer; transition: color var(--transition - fast);
+}
+.close - modal - btn:hover { color: var(--text - primary); }
+.modal - header { margin - bottom: 32px; text - align: center; }
+.modal - header h2 { font - size: 24px; margin - bottom: 8px; }
+.modal - header p { color: var(--text - secondary); font - size: 14px; }
+.auth - form { display: flex; flex - direction: column; gap: 20px; }
+.form - group { display: flex; flex - direction: column; gap: 8px; }
+.form - group label { font - size: 13px; font - weight: 500; color: var(--text - secondary); }
+.form - group input {
+    background - color: var(--bg - dark); border: 1px solid var(--border - color);
+    border - radius: var(--radius - sm); padding: 12px 16px; color: var(--text - primary);
+    font - size: 15px; outline: none; transition: border - color var(--transition - fast);
+}
+.form - group input:focus { border - color: var(--accent - primary); }
+
+/* --- 10. Responsive Logic --- */
+@media(max - width: 1024px) {
+    .dashboard - split { grid - template - columns: 50 % 50 %; }
+}
+@media(max - width: 768px) {
+    .dashboard - container { grid - template - columns: 1fr; }
+    .sidebar { position: fixed; left: -240px; top: 0; bottom: 0; width: 240px; box - shadow: var(--shadow - md); }
+    .sidebar.open { transform: translateX(240px); }
+    .mobile - menu - toggle { display: block; }
+    .top - header { padding: 0 16px; gap: 16px; }
+    .search - container { display: none; /* Hide on small screens for simplicity or adjust styling */ }
+    .dashboard - split { grid - template - columns: 1fr; position: relative; }
+    .job - list - section { padding: 16px; }
+    .job - detail - section {
+        position: absolute; top: 0; left: 0; width: 100 %; height: 100 %;
+        transform: translateX(100 %); transition: transform var(--transition - normal); z - index: 5;
+    }
+    .job - detail - section.active { transform: translateX(0); }
+    .mobile - back - btn {
+        display: flex; align - items: center; gap: 8px; color: var(--text - secondary);
+        background: none; border: none; font - size: 15px; margin - bottom: 16px; cursor: pointer;
+    }
+}

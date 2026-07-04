@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Board Dashboard</title>
+    <!-- Modern Sans-Serif Font: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons for a clean, premium iconography -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Master Grid Layout Wrapper -->
+    <div class="dashboard-container">
+
+        <!-- Left Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="logo-container">
+                <i class="ph ph-briefcase logo-icon"></i>
+                <span class="logo-text">JobBoard.</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#" class="nav-link active"><i class="ph ph-squares-four"></i><span>Dashboard</span></a>
+                <a href="#" class="nav-link"><i class="ph ph-magnifying-glass"></i><span>Find Jobs</span></a>
+                <a href="#" class="nav-link"><i class="ph ph-bookmark-simple"></i><span>Saved Jobs</span></a>
+                <a href="#" class="nav-link"><i class="ph ph-paper-plane-tilt"></i><span>Applications</span></a>
+                <a href="#" class="nav-link"><i class="ph ph-user"></i><span>Profile</span></a>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+
+            <!-- Top Header -->
+            <header class="top-header">
+                <!-- Hamburger menu for mobile -->
+                <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                    <i class="ph ph-list"></i>
+                </div>
+
+                <div class="search-container">
+                    <i class="ph ph-magnifying-glass search-icon"></i>
+                    <input type="text" id="search-input" placeholder="Search by title, company, or tags...">
+                </div>
+
+                <div class="header-actions">
+                    <button class="icon-btn" aria-label="Notifications">
+                        <i class="ph ph-bell"></i>
+                        <span class="notification-badge"></span>
+                    </button>
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?name=User&background=2563eb&color=fff" alt="User Avatar"
+                            class="avatar">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Split-Screen Dashboard Structure -->
+            <div class="dashboard-split">
+
+                <!-- Left Column (60%): Job Feed -->
+                <section class="job-list-section">
+                    <div class="section-header">
+                        <h1 class="welcome-text">Find your dream job</h1>
+                        <p class="subtitle">Explore the latest opportunities</p>
+                    </div>
+
+                    <!-- Horizontal Filter Tags -->
+                    <div class="filter-tags">
+                        <button class="filter-tag active">All</button>
+                        <button class="filter-tag">Frontend</button>
+                        <button class="filter-tag">Backend</button>
+                        <button class="filter-tag">Fullstack</button>
+                        <button class="filter-tag">Remote</button>
+                    </div>
+
+                    <!-- Scrollable Container for Dynamic Job Cards -->
+                    <div class="job-cards-container" id="job-cards-container">
+                        <!-- JS will inject job cards here -->
+                    </div>
+                </section>
+
+                <!-- Right Column (40%): Job Details Panel -->
+                <section class="job-detail-section" id="job-detail-section">
+                    <!-- Default Empty State -->
+                    <div class="empty-state">
+                        <i class="ph ph-briefcase"></i>
+                        <p>Select a job to view details</p>
+                    </div>
+                    <!-- JS will inject selected job details here -->
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
