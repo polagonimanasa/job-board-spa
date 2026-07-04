@@ -910,3 +910,44 @@ body {
     /* Add dynamic padding at the bottom to respect physical device notches and native nav bars */
     padding-bottom: calc(env(safe-area-inset-bottom, 20px) + 16px);
 }
+
+/* --- MOBILE SCROLLING FIX & BOTTOM CUSHION --- */
+
+/* 1. Force the root document to allow vertical scrolling */
+html,
+body {
+    /* Remove strict height limits that freeze the layout */
+    height: auto !important;
+
+    /* Ensure the body at least covers the screen, but can grow endlessly */
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+
+    /* Forcibly restore vertical scrolling */
+    overflow-y: auto !important;
+
+    /* Prevent accidental horizontal scrolling/wobble on mobile */
+    overflow-x: hidden !important;
+}
+
+/* 2. Target your primary structural tags to add the safety cushion */
+main,
+.main-content,
+.dashboard-wrapper {
+    /* Allow the main content area to expand naturally based on content */
+    height: auto !important;
+    min-height: 100vh !important;
+
+    /* Ensure it acts as a scrollable element if flex/grid properties altered it */
+    overflow-y: auto !important;
+
+    /* Extensive safety cushion: 100px + native safe-area inset */
+    padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px)) !important;
+}
+
+/* Optional: If your detail view is an absolute positioned overlay, unlock it too */
+.job-detail-section,
+.detail-view-overlay {
+    overflow-y: auto !important;
+    padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px)) !important;
+}
