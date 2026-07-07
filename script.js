@@ -8,8 +8,8 @@
 const API_CONFIG = {
     BASE_URL: 'https://api.adzuna.com/v1/api/jobs',
     COUNTRY: 'us', // Default search country
-    APP_ID: 'YOUR_ADZUNA_APP_ID_HERE',
-    APP_KEY: 'YOUR_ADZUNA_APP_KEY_HERE',
+    APP_ID: 'c09cf9f7',
+    APP_KEY: 'd1d10d7673af3aa01967f502cd9c5b65',
     RESULTS_PER_PAGE: 15
 };
 
